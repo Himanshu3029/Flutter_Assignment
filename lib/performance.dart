@@ -52,130 +52,123 @@ class _PerformanceState extends State<Performance> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-            child: (loading)
-                ? const CircularProgressIndicator()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          child: Text(
-                            "Performance",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 7, 74, 129),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+        child: (loading)
+            ? const CircularProgressIndicator()
+            : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                  child: Text(
+                    "Performance",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 7, 74, 129),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: Divider(
+                    color: Colors.grey.shade400,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return (double.parse(data[index]['ChangePercent']) > 0)
+                            ? ListTile(
+                                leading: Text(data[index]['Label']),
+                                title: LinearPercentIndicator(
+                                  animation: true,
+                                  animationDuration: 1000,
+                                  lineHeight: 20,
+                                  percent: percentprogress[index],
+                                  linearStrokeCap:
+                                      // ignore: deprecated_member_use
+                                      LinearStrokeCap.roundAll,
+                                  backgroundColor: Colors.grey.shade400,
+                                  progressColor: Colors.green.shade900,
+                                ),
+                                trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.arrow_drop_up,
+                                        color: Colors.green,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(data[index]['ChangePercent'],
+                                          style: TextStyle(
+                                              color: Colors.green.shade900)),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                    ]))
+                            : ListTile(
+                                leading: Text(data[index]['Label']),
+                                title: LinearPercentIndicator(
+                                  animation: true,
+                                  animationDuration: 1000,
+                                  lineHeight: 20,
+                                  percent: percentprogress[index],
+                                  // ignore: deprecated_member_use
+                                  linearStrokeCap:
+                                      // ignore: deprecated_member_use
+                                      LinearStrokeCap.roundAll,
+                                  backgroundColor: Colors.grey.shade400,
+                                  progressColor: Colors.red.shade900,
+                                ),
+                                trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.red,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        data[index]['ChangePercent'],
+                                        style: TextStyle(
+                                            color: Colors.red.shade900),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                    ]));
+                      },
+                      itemCount: data.length,
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "View More",
+                            style: TextStyle(color: Colors.amber.shade600),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Divider(
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Column(
-                          children: [
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return (double.parse(
-                                            data[index]['ChangePercent']) >
-                                        0)
-                                    ? ListTile(
-                                        leading: Text(data[index]['Label']),
-                                        title: LinearPercentIndicator(
-                                          animation: true,
-                                          animationDuration: 1000,
-                                          lineHeight: 20,
-                                          percent: percentprogress[index],
-                                          linearStrokeCap:
-                                              // ignore: deprecated_member_use
-                                              LinearStrokeCap.roundAll,
-                                          backgroundColor: Colors.grey.shade400,
-                                          progressColor: Colors.green.shade900,
-                                        ),
-                                        trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(
-                                                Icons.arrow_drop_up,
-                                                color: Colors.green,
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(data[index]['ChangePercent'],
-                                                  style: TextStyle(
-                                                      color: Colors
-                                                          .green.shade900)),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                            ]))
-                                    : ListTile(
-                                        leading: Text(data[index]['Label']),
-                                        title: LinearPercentIndicator(
-                                          animation: true,
-                                          animationDuration: 1000,
-                                          lineHeight: 20,
-                                          percent: percentprogress[index],
-                                          // ignore: deprecated_member_use
-                                          linearStrokeCap:
-                                              // ignore: deprecated_member_use
-                                              LinearStrokeCap.roundAll,
-                                          backgroundColor: Colors.grey.shade400,
-                                          progressColor: Colors.red.shade900,
-                                        ),
-                                        trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(
-                                                Icons.arrow_drop_down,
-                                                color: Colors.red,
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                data[index]['ChangePercent'],
-                                                style: TextStyle(
-                                                    color: Colors.red.shade900),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                            ]));
-                              },
-                              itemCount: data.length,
-                            ),
-                            ListTile(
-                              onTap: () {},
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    "View More",
-                                    style:
-                                        TextStyle(color: Colors.amber.shade600),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ])));
+                          const SizedBox(
+                            width: 10,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ]));
   }
 }
